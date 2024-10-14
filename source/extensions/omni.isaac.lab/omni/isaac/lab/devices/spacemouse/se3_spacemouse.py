@@ -124,8 +124,6 @@ class Se3SpaceMouse(DeviceBase):
                     found = True
                     vendor_id = device["vendor_id"]
                     product_id = device["product_id"]
-                    # connect to the device
-                    self._device.open(vendor_id, product_id)
             # check if device found
             if not found:
                 time.sleep(1.0)
@@ -134,6 +132,9 @@ class Se3SpaceMouse(DeviceBase):
         # no device found: return false
         if not found:
             raise OSError("No device found by SpaceMouse. Is the device connected?")
+        else:
+            # connect to the device
+            self._device.open(vendor_id, product_id)
 
     def _run_device(self):
         """Listener thread that keeps pulling new messages."""
